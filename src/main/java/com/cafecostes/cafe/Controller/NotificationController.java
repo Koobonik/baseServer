@@ -69,11 +69,9 @@ public class NotificationController {
                 return new ResponseEntity<>(firebaseResponse, HttpStatus.OK);
             }
             catch (InterruptedException e){
-                logger.debug("got interrupted!");
                 throw new InterruptedException();
             }
             catch (ExecutionException e){
-                logger.debug("execution error!");
             }
 
             return new ResponseEntity<>("Push Notification ERROR!", HttpStatus.BAD_REQUEST);
@@ -88,10 +86,9 @@ public class NotificationController {
     public ResponseEntity<String> sendToCustomer(@RequestParam String userName, @RequestParam String token) throws JSONException, InterruptedException  {
         //Users users = usersRepository.findByUserName(userName);
         //https://cafecostes.com/sendToCustomer?userName=구본익&token=fj9B7QconG0:APA91bEbxBRFISLnUgxPkojSecov4L2vkd46bUvld_c7q__DZvO-aGeCD9U4TZ9N8ct1g_qWEheusw-JHn-CDNS4_62TbXgA3OnBLXiPPfQqVK9n8Lm0yaApGxywCPuYlCxmsbIyFMmR
-        log.info(userName);
-        log.info(token);
+
         String notifications = PushPeriodicNotifications.SuccessOrder(userName, "주문이 완료되었습니다.", "매장 상황에 따라 시간이 더 소요될 수 있습니다.", token);
-        log.info(notifications);
+
         HttpEntity<String> request = new HttpEntity<>(notifications);
 
         CompletableFuture<String> pushNotification = pushNotificationService.send(request);
@@ -99,15 +96,12 @@ public class NotificationController {
 
         try{
             String firebaseResponse = pushNotification.get();
-            log.info("파이어베이스 리스폰 "+ firebaseResponse);
             return new ResponseEntity<>(firebaseResponse, HttpStatus.OK);
         }
         catch (InterruptedException e){
-            logger.debug("got interrupted!");
             throw new InterruptedException();
         }
         catch (ExecutionException e){
-            logger.debug("execution error!");
         }
 
         return new ResponseEntity<>("Push Notification ERROR!", HttpStatus.BAD_REQUEST);

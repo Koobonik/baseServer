@@ -19,7 +19,6 @@ public class WebController {
 
     @RequestMapping(value="/", method = {RequestMethod.GET, RequestMethod.POST})
     public String main() {
-        log.info("index진입");
         return "index.html";
     }
 
