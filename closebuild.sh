@@ -1,6 +1,6 @@
 echo "> 현재 구동중인 애플리케이션 pid 확인"
 
-CURRENT_PID=$(pgrep -f cafe)
+CURRENT_PID=$(pgrep -f base)
 
 echo "$CURRENT_PID"
 

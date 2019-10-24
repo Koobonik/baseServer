@@ -18,10 +18,10 @@ import java.nio.charset.Charset;
 
 @SuppressWarnings("ALL")
 @SpringBootApplication
-public class CafeApplication {
+public class BaseApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(CafeApplication.class, args);
+        SpringApplication.run(BaseApplication.class, args);
 
 //        FirebaseOptions options = null;
 //        try {
