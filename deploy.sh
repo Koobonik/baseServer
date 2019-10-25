@@ -27,4 +27,4 @@ JAR_NAME=$(ls / |grep 'Server' | tail -n 1)
 
 echo "> JAR Name: $JAR_NAME"
 
-java -jar build/libs/cafe-0.0.1-SNAPSHOT.jar &
+java -jar build/libs/base-0.0.1-SNAPSHOT.jar &
