@@ -1,4 +1,4 @@
-package com.cafecostes.cafe;
+package com.base.base;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
