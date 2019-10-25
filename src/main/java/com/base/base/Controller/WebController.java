@@ -18,12 +18,12 @@ public class WebController {
     private UsersRepository usersRepository;
 
     @RequestMapping(value="/", method = {RequestMethod.GET, RequestMethod.POST})
-    public String main() {
+    public @ResponseBody String main() {
         return "index.html";
     }
 
     @GetMapping("/greeting")
-    public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
+    public @ResponseBody String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
         model.addAttribute("name", name);
         return "greeting.html";
     }
