@@ -1,4 +1,4 @@
-package com.cafecostes.cafe;
+package com.base.base;
 
 
 import lombok.Getter;

@@ -1,6 +1,6 @@
-package com.cafecostes.cafe.Controller;
+package com.base.base.Controller;
 
-import com.cafecostes.cafe.AES256.AES256Cipher;
+import com.base.base.AES256.AES256Cipher;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

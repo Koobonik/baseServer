@@ -1,6 +1,6 @@
-package com.cafecostes.cafe.repository;
+package com.base.base.repository;
 
-import com.cafecostes.cafe.DB.Users;
+import com.base.base.DB.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 // This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository

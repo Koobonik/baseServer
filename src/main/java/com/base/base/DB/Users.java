@@ -1,4 +1,4 @@
-package com.cafecostes.cafe.DB;
+package com.base.base.DB;
 
 import lombok.Builder;
 import lombok.Data;
