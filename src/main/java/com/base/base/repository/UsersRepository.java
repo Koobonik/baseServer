@@ -11,13 +11,7 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
 //            "FROM Users p " +
 //            "ORDER BY p.usernum DESC")
 //    Stream<Users> findAllDesc();
-    Users findByUserNameAndUserEmail(String name, String email);
-    Users findByUserLoginIdAndUserEmail(String id, String email);
-    Users findByUserLoginId(String id);
-    Users findByUserName(String name);
-    Users findByUserEmail(String email);
-    Users findByUserNum(int user_num);
-    Users findByUserLoginIdAndUserLoginPassword(String id, String pwd);
+
 
 
 //    @Query("SELECT Users.userLoginId " +

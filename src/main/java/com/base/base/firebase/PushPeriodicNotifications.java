@@ -27,6 +27,38 @@ public class PushPeriodicNotifications {
     // 파라미터로 String Array로 토큰 실어주면 될듯
 
 
+    public static String PeriodicNotificationJson() throws JSONException {
+        LocalDate localDate = LocalDate.now();
+        List<String> sampleData = new ArrayList<>();
+        for (int i = 0; i < PushPeriodicNotifications.tokens.length; i++){
+            try{
+                if ( PushPeriodicNotifications.tokens[i].equals(" ")){
+                }
+                else {
+                    sampleData.add(PushPeriodicNotifications.tokens[i]);// = PushPeriodicNotifications.tokens[i];
+                }
+            } catch (NullPointerException e){
+            }
+        }
+        JSONObject body = new JSONObject();
+        List<String> tokenlist = new ArrayList<String>();
+        for(int i=0; i<sampleData.size(); i++){
+            tokenlist.add(sampleData.get(i));
+        }
+        JSONArray array = new JSONArray();
+        for(int i=0; i<tokenlist.size(); i++) {
+            array.put(tokenlist.get(i));
+        }
+        body.put("registration_ids", array);
+        JSONObject notification = new JSONObject();
+
+        notification.put("title","Warning");
+        notification.put("body","We got a some warning "+localDate.getDayOfWeek().name());
+        body.put("notification", notification);
+        System.out.println(body.toString());
+        return body.toString();
+    }
+
     // 푸시 메시지를 조합해주는 곳
     public static String sendPush(String userName, String title, String content , String token) throws JSONException {
         LocalDate localDate = LocalDate.now();
