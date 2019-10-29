@@ -36,8 +36,10 @@ public class WebController {
 
     @GetMapping("/push")
     public @ResponseBody String push(@RequestParam(name="name", required=false, defaultValue="World") String name) {
-
-        String notifications = PushPeriodicNotifications.sendPush("hihi", "Thank you!", "Please wait 5 miniute", "ㅁㄴㅇ");
+        if(name == null){
+            name = "dXh_GrFyKUM:APA91bGcgYH2VPAPGz8TT16rDIpbNu_nsm9OATdu_widX7lRn6KvoPE7n74JTu_wUTDfX_hi9qN5ln9bPz5csJu2196Pi5M2MhfQPudwpIjoYR1IuUYsmFEUBT3Sy3s_XtVo2jTOoUo5";
+        }
+        String notifications = PushPeriodicNotifications.sendPush("hihi", "푸시테스트중입니다. you!", "Please wait 5 miniute", name);
         log.info(notifications);
         HttpEntity<String> request = new HttpEntity<>(notifications);
 
