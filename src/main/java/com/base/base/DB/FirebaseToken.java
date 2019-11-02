@@ -21,5 +21,8 @@ public class FirebaseToken {
     private String firebaseToken;
 
     // base
-
+    @Builder
+    public FirebaseToken(String firebaseToken){
+        this.firebaseToken = firebaseToken;
+    }
 }

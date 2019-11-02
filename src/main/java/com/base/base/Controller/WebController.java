@@ -97,8 +97,8 @@ public class WebController {
         // 값이있으면 이미 등록되어 있음
         if(firebaseToken == null){ // 비어있는 값이면 등록 해줘야함
             System.out.println("토큰 set " + parameter.getData1());
-            firebaseToken.setFirebaseToken(token);
-            firebaseTokenRepository.save(firebaseToken);
+            FirebaseToken firebaseToken2 = new FirebaseToken(parameter.getData1());
+            firebaseTokenRepository.save(firebaseToken2);
             System.out.println("성공적으로 토큰 저장");
             return "true";
         }
