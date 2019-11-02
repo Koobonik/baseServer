@@ -1,14 +1,11 @@
 package com.base.base.DB;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 
-//@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
 @Service
@@ -25,8 +22,4 @@ public class FirebaseToken {
 
     // base
     
-
-    public FirebaseToken(){
-
-    }
 }
