@@ -89,7 +89,7 @@ public class WebController {
     }
 
     // registerFirebaseToken
-    @PostMapping("/registerFirebaseToken")
+    @RequestMapping(value = "registerFirebaseToken", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json")
     public @ResponseBody String registerFirebaseToken(@RequestBody Parameter parameter){
         FirebaseToken firebaseToken = firebaseTokenRepository.findByFirebaseToken(parameter.getData1());
         System.out.println("뭐가 문제지 " + parameter.getData1());
