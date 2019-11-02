@@ -18,8 +18,8 @@ public class FirebaseToken {
 
 
     @Column(columnDefinition = "TEXT", unique = true)
-    private String firebaseToken = " ";
+    private String firebaseToken;
 
     // base
-    
+
 }
