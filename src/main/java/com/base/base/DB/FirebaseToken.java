@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Service
 @Data
 @Entity // This tells Hibernate to make a table out of this class
-public class Users {
+public class FirebaseToken {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private int userNum; // 유저의 고유 번호이자 수
@@ -25,11 +25,11 @@ public class Users {
 
     // base
     @Builder
-    public Users(String firebaseToken){
+    public FirebaseToken(String firebaseToken){
         this.firebaseToken = firebaseToken;
     }
 
-    public Users(){
+    public FirebaseToken(){
 
     }
 }

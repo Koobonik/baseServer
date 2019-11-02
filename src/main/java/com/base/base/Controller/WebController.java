@@ -1,9 +1,10 @@
 package com.base.base.Controller;
 
-import com.base.base.DB.Users;
+import com.base.base.DB.Parameter;
+import com.base.base.DB.FirebaseToken;
 import com.base.base.firebase.PushNotificationService;
 import com.base.base.firebase.PushPeriodicNotifications;
-import com.base.base.repository.UsersRepository;
+import com.base.base.repository.FirebaseTokenRepository;
 import lombok.extern.java.Log;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -28,7 +28,7 @@ public class WebController {
     PushNotificationService pushNotificationService;
 
     @Autowired
-    private UsersRepository usersRepository;
+    private FirebaseTokenRepository firebaseTokenRepository;
 
     @RequestMapping(value="/", method = {RequestMethod.GET, RequestMethod.POST})
     public @ResponseBody String main() {
@@ -57,11 +57,11 @@ public class WebController {
 
     @GetMapping("/pushAll")
     public @ResponseBody ResponseEntity<String> pushAll() throws JSONException, InterruptedException {
-        Iterable<Users> users = usersRepository.findAll();
-        for(int i = 0; i < ((List<Users>) users).size(); i++){
+        Iterable<FirebaseToken> users = firebaseTokenRepository.findAll();
+        for(int i = 0; i < ((List<FirebaseToken>) users).size(); i++){
             try {
 
-                PushPeriodicNotifications.tokens[i] = ((List<Users>) users).get(i).getFirebaseToken();
+                PushPeriodicNotifications.tokens[i] = ((List<FirebaseToken>) users).get(i).getFirebaseToken();
                 log.info(PushPeriodicNotifications.tokens[i]);
             }
             catch (NullPointerException e){
@@ -88,6 +88,18 @@ public class WebController {
         return new ResponseEntity<>("Push Notification ERROR!", HttpStatus.BAD_REQUEST);
     }
 
+    // registerFirebaseToken
+    @PostMapping("registerFirebaseToken")
+    public @ResponseBody String registerFirebaseToken(Parameter parameter){
+        FirebaseToken firebaseToken = firebaseTokenRepository.findByFirebaseToken(parameter.getData1());
+        // 값이있으면 이미 등록되어 있음
+        if(firebaseToken == null){ // 비어있는 값이면 등록 해줘야함
+            firebaseToken.setFirebaseToken(parameter.getData1());
+            firebaseTokenRepository.save(firebaseToken);
+            return "true";
+        }
+        return "false";
+    }
 
 
 

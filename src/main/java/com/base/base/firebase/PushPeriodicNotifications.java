@@ -1,6 +1,6 @@
 package com.base.base.firebase;
 
-import com.base.base.repository.UsersRepository;
+import com.base.base.repository.FirebaseTokenRepository;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -21,7 +21,7 @@ import java.util.List;
 public class PushPeriodicNotifications {
 
     @Autowired
-    UsersRepository usersRepository;
+    FirebaseTokenRepository firebaseTokenRepository;
 
     public static String tokens[] = new String[1000];
     // 파라미터로 String Array로 토큰 실어주면 될듯
