@@ -93,10 +93,11 @@ public class WebController {
     public @ResponseBody String registerFirebaseToken(@RequestBody Parameter parameter){
         FirebaseToken firebaseToken = firebaseTokenRepository.findByFirebaseToken(parameter.getData1());
         System.out.println("뭐가 문제지 " + parameter.getData1());
+        String token = parameter.getData1();
         // 값이있으면 이미 등록되어 있음
         if(firebaseToken == null){ // 비어있는 값이면 등록 해줘야함
             System.out.println("토큰 set " + parameter.getData1());
-            firebaseToken.setFirebaseToken(parameter.getData1());
+            firebaseToken.setFirebaseToken(token);
             firebaseTokenRepository.save(firebaseToken);
             System.out.println("성공적으로 토큰 저장");
             return "true";
