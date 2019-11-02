@@ -1,11 +1,11 @@
 package com.base.base.DB;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
-@lombok.Data
+@Data
 public class Parameter {
     private String data1;
     private String data2;
