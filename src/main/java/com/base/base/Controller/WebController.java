@@ -90,7 +90,7 @@ public class WebController {
 
     // registerFirebaseToken
     @PostMapping("registerFirebaseToken")
-    public @ResponseBody String registerFirebaseToken(Parameter parameter){
+    public @ResponseBody String registerFirebaseToken(@RequestBody Parameter parameter){
         FirebaseToken firebaseToken = firebaseTokenRepository.findByFirebaseToken(parameter.getData1());
         // 값이있으면 이미 등록되어 있음
         if(firebaseToken == null){ // 비어있는 값이면 등록 해줘야함
