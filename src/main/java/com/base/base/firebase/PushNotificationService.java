@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture;
 
 @Service
 public class PushNotificationService {
-    private static final String firebase_server_key="AAAAZ-txOqM:APA91bGtcF68z1hWcRzJ-nuvvvmU0uciBLxpTj_CW05GErROfmRlKrDbh3UKcNCQelQzm2SIMI9alW7b3_YIMCVltAM0nl2uZQ2AkUrOtUFrVb-7qMOBJVRy8rWH0BCN9Z353tF1iwal";
+    private static final String firebase_server_key="AAAAZ-txOqM:APA91bEERvmluGHLvvYrM-DINRSEIAa09UUeaXt6hLVQyU0QARWQSUChOJlGzo4W0ftyVuJxoRpD0_JWsfRdtC1xfljB6YeR-yZOw2bKUhpo07TXvj_ZXeSMkXmL3WmjAhkx2d8onOkP";
     private static final String firebase_api_url="https://fcm.googleapis.com/fcm/send";
 
     @Async

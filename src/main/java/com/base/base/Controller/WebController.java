@@ -57,11 +57,11 @@ public class WebController {
 
     @GetMapping("/pushAll")
     public @ResponseBody ResponseEntity<String> pushAll() throws JSONException, InterruptedException {
-        Iterable<FirebaseToken> users = firebaseTokenRepository.findAll();
-        for(int i = 0; i < ((List<FirebaseToken>) users).size(); i++){
+        Iterable<FirebaseToken> firebaseTokens = firebaseTokenRepository.findAll();
+        for(int i = 0; i < ((List<FirebaseToken>) firebaseTokens).size(); i++){
             try {
 
-                PushPeriodicNotifications.tokens[i] = ((List<FirebaseToken>) users).get(i).getFirebaseToken();
+                PushPeriodicNotifications.tokens[i] = ((List<FirebaseToken>) firebaseTokens).get(i).getFirebaseToken();
                 log.info(PushPeriodicNotifications.tokens[i]);
             }
             catch (NullPointerException e){
