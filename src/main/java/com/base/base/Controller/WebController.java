@@ -75,7 +75,7 @@ public class WebController {
                 catch (NullPointerException e){
                 }
             }
-            String notifications = PushPeriodicNotifications.PeriodicNotificationJson(str);
+            String notifications = PushPeriodicNotifications.PeriodicNotificationJson();
 
             HttpEntity<String> request = new HttpEntity<>(notifications);
             System.out.println(request);
