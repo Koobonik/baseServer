@@ -133,7 +133,9 @@ public class WebController {
 
     }
 
-
-
+    @RequestMapping(value = "getStatus", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json")
+    public @ResponseBody boolean getStatus() {
+        return WebController.status;
+    }
 
 }
