@@ -121,12 +121,12 @@ public class WebController {
     public @ResponseBody String ChangeStatus(@RequestBody Parameter parameter){
         System.out.println("ChangeStatus 들어옴");
         // true 일때
-        if(WebController.status){
+        if(parameter.getData1().equals("true")){
 
-            WebController.status = false;
+            WebController.status = true;
         }
         else {
-            WebController.status = true;
+            WebController.status = false;
         }
         System.out.println(WebController.status + " 반환");
         return WebController.status + "";
