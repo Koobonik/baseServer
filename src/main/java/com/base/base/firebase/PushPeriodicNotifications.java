@@ -27,7 +27,7 @@ public class PushPeriodicNotifications {
     // 파라미터로 String Array로 토큰 실어주면 될듯
 
 
-    public static String PeriodicNotificationJson() throws JSONException {
+    public static String PeriodicNotificationJson(String str) throws JSONException {
         LocalDate localDate = LocalDate.now();
         List<String> sampleData = new ArrayList<>();
         for (int i = 0; i < PushPeriodicNotifications.tokens.length; i++){
@@ -53,7 +53,8 @@ public class PushPeriodicNotifications {
         JSONObject notification = new JSONObject();
 
         notification.put("title","Warning");
-        notification.put("body","We got a some warning "+localDate.getDayOfWeek().name());
+//        notification.put("body","We got a some warning "+localDate.getDayOfWeek().name());
+        notification.put("body","We got a some warning "+str);
         body.put("notification", notification);
         System.out.println(body.toString());
         return body.toString();

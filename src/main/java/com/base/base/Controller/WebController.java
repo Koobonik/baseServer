@@ -63,7 +63,7 @@ public class WebController {
     }
 
     @GetMapping("/pushAll")
-    public @ResponseBody ResponseEntity<String> pushAll() throws JSONException, InterruptedException {
+    public @ResponseBody ResponseEntity<String> pushAll(@RequestParam String str) throws JSONException, InterruptedException {
         if(WebController.status){
             Iterable<FirebaseToken> firebaseTokens = firebaseTokenRepository.findAll();
             for(int i = 0; i < ((List<FirebaseToken>) firebaseTokens).size(); i++){
@@ -75,7 +75,7 @@ public class WebController {
                 catch (NullPointerException e){
                 }
             }
-            String notifications = PushPeriodicNotifications.PeriodicNotificationJson();
+            String notifications = PushPeriodicNotifications.PeriodicNotificationJson(str);
 
             HttpEntity<String> request = new HttpEntity<>(notifications);
             System.out.println(request);
