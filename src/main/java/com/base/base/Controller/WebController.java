@@ -119,14 +119,18 @@ public class WebController {
     // 푸시알림 쏠지 말지 상태값 바꾸어주는 메소드
     @RequestMapping(value = "ChangeStatus", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json")
     public @ResponseBody String ChangeStatus(@RequestBody Parameter parameter){
+        System.out.println("ChangeStatus 들어옴");
         // true 일때
         if(WebController.status){
+
             WebController.status = false;
         }
         else {
             WebController.status = true;
         }
+        System.out.println(WebController.status + " 반환");
         return WebController.status + "";
+
     }
 
 
