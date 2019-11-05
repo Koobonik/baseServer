@@ -138,9 +138,13 @@ public class WebController {
         return WebController.status+"";
     }
 
-    @GetMapping("/test")
-    public @ResponseBody String test(@RequestParam String test){
+    @GetMapping("/setTest")
+    public @ResponseBody String setTest(@RequestParam String test){
         WebController.str = test;
+        return WebController.str;
+    }
+    @GetMapping("/getTest")
+    public @ResponseBody String getTest(){
         return WebController.str;
     }
 }
