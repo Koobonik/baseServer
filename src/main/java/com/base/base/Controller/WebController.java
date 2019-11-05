@@ -95,7 +95,7 @@ public class WebController {
 
             return new ResponseEntity<>("Push Notification ERROR!", HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>("Push Notification ERROR!", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Status : false", HttpStatus.BAD_REQUEST);
 
     }
 
