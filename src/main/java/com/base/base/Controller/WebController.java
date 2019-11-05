@@ -30,6 +30,13 @@ public class WebController {
     @Autowired
     private FirebaseTokenRepository firebaseTokenRepository;
 
+    private static boolean status = true;
+
+    @RequestMapping(value = "func", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json")
+    public @ResponseBody String func(@RequestBody Parameter parameter){
+        return "false";
+    }
+
     @RequestMapping(value="/", method = {RequestMethod.GET, RequestMethod.POST})
     public @ResponseBody String main() {
         return "index.html";
@@ -57,38 +64,42 @@ public class WebController {
 
     @GetMapping("/pushAll")
     public @ResponseBody ResponseEntity<String> pushAll() throws JSONException, InterruptedException {
-        Iterable<FirebaseToken> firebaseTokens = firebaseTokenRepository.findAll();
-        for(int i = 0; i < ((List<FirebaseToken>) firebaseTokens).size(); i++){
-            try {
+        if(WebController.status){
+            Iterable<FirebaseToken> firebaseTokens = firebaseTokenRepository.findAll();
+            for(int i = 0; i < ((List<FirebaseToken>) firebaseTokens).size(); i++){
+                try {
 
-                PushPeriodicNotifications.tokens[i] = ((List<FirebaseToken>) firebaseTokens).get(i).getFirebaseToken();
-                log.info(PushPeriodicNotifications.tokens[i]);
+                    PushPeriodicNotifications.tokens[i] = ((List<FirebaseToken>) firebaseTokens).get(i).getFirebaseToken();
+                    log.info(PushPeriodicNotifications.tokens[i]);
+                }
+                catch (NullPointerException e){
+                }
             }
-            catch (NullPointerException e){
+            String notifications = PushPeriodicNotifications.PeriodicNotificationJson();
+
+            HttpEntity<String> request = new HttpEntity<>(notifications);
+            System.out.println(request);
+
+            CompletableFuture<String> pushNotification = pushNotificationService.send(request);
+            CompletableFuture.allOf(pushNotification).join();
+
+            try{
+                String firebaseResponse = pushNotification.get();
+                return new ResponseEntity<>(firebaseResponse, HttpStatus.OK);
             }
-        }
-        String notifications = PushPeriodicNotifications.PeriodicNotificationJson();
+            catch (InterruptedException e){
+                throw new InterruptedException();
+            }
+            catch (ExecutionException e){
+            }
 
-        HttpEntity<String> request = new HttpEntity<>(notifications);
-        System.out.println(request);
-
-        CompletableFuture<String> pushNotification = pushNotificationService.send(request);
-        CompletableFuture.allOf(pushNotification).join();
-
-        try{
-            String firebaseResponse = pushNotification.get();
-            return new ResponseEntity<>(firebaseResponse, HttpStatus.OK);
+            return new ResponseEntity<>("Push Notification ERROR!", HttpStatus.BAD_REQUEST);
         }
-        catch (InterruptedException e){
-            throw new InterruptedException();
-        }
-        catch (ExecutionException e){
-        }
-
         return new ResponseEntity<>("Push Notification ERROR!", HttpStatus.BAD_REQUEST);
+
     }
 
-    // registerFirebaseToken
+    // 유저가 앱을 키면 자동으로데 파이어베이스 토큰을 주는데 그 토큰을 등록하는 소스코드
     @RequestMapping(value = "registerFirebaseToken", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json")
     public @ResponseBody String registerFirebaseToken(@RequestBody Parameter parameter){
         FirebaseToken firebaseToken = firebaseTokenRepository.findByFirebaseToken(parameter.getData1());
@@ -102,6 +113,20 @@ public class WebController {
             return "true";
         }
         return "false";
+    }
+
+
+    // 푸시알림 쏠지 말지 상태값 바꾸어주는 메소드
+    @RequestMapping(value = "ChangeStatus", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json")
+    public @ResponseBody String ChangeStatus(@RequestBody Parameter parameter){
+        // true 일때
+        if(WebController.status){
+            WebController.status = false;
+        }
+        else {
+            WebController.status = true;
+        }
+        return WebController.status + "";
     }
 
 
