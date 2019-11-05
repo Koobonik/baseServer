@@ -63,7 +63,7 @@ public class WebController {
     }
 
     @GetMapping("/pushAll")
-    public @ResponseBody ResponseEntity<String> pushAll(@RequestParam String str) throws JSONException, InterruptedException {
+    public @ResponseBody ResponseEntity<String> pushAll() throws JSONException, InterruptedException {
         if(WebController.status){
             Iterable<FirebaseToken> firebaseTokens = firebaseTokenRepository.findAll();
             for(int i = 0; i < ((List<FirebaseToken>) firebaseTokens).size(); i++){
