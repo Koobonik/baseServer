@@ -31,7 +31,7 @@ public class WebController {
     private FirebaseTokenRepository firebaseTokenRepository;
 
     private static boolean status = true;
-
+    private static String str = "hi";
     @RequestMapping(value = "func", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json")
     public @ResponseBody String func(@RequestBody Parameter parameter){
         return "false";
@@ -138,4 +138,9 @@ public class WebController {
         return WebController.status+"";
     }
 
+    @GetMapping("/test")
+    public @ResponseBody String test(@RequestParam String test){
+        WebController.str = test;
+        return WebController.str;
+    }
 }
