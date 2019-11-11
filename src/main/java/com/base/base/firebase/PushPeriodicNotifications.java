@@ -1,6 +1,9 @@
 package com.base.base.firebase;
 
+import com.base.base.Controller.DateController;
+import com.base.base.DB.LogHistory;
 import com.base.base.repository.FirebaseTokenRepository;
+import com.base.base.repository.LogHistoryRepository;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -21,7 +24,10 @@ import java.util.List;
 public class PushPeriodicNotifications {
 
     @Autowired
-    FirebaseTokenRepository firebaseTokenRepository;
+    private FirebaseTokenRepository firebaseTokenRepository;
+
+    @Autowired
+    private static LogHistoryRepository logHistoryRepository;
 
     public static String tokens[] = new String[1000];
     // 파라미터로 String Array로 토큰 실어주면 될듯
@@ -52,10 +58,18 @@ public class PushPeriodicNotifications {
         body.put("registration_ids", array);
         JSONObject notification = new JSONObject();
 
-        notification.put("title","Warning");
-        notification.put("body","We got a some warning "+localDate.getDayOfWeek().name());
+        DateController dateController = new DateController();
+
+        notification.put("title",dateController.getCreatedDate2());
+        // notification.put("title","Warning");
+        String bodyStr = "We got a some warning";
+        notification.put("body", bodyStr);
+        // notification.put("sound", "default"); // 소리나 진동 울리게 하고 싶으면 이거 주석 해제
         body.put("notification", notification);
         System.out.println(body.toString());
+
+        LogHistory logHistory = new LogHistory(dateController.getCreatedDate2(), bodyStr);
+        logHistoryRepository.save(logHistory);
         return body.toString();
     }
 

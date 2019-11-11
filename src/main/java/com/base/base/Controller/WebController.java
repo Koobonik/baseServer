@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import com.base.base.Controller.DateController;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -85,6 +85,8 @@ public class WebController {
 
             try{
                 String firebaseResponse = pushNotification.get();
+                // 푸시를 성공적으로 보냈다면 스위치 off
+                // WebController.status = false;
                 return new ResponseEntity<>(firebaseResponse, HttpStatus.OK);
             }
             catch (InterruptedException e){
