@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Stream;
 
 
 @Log
@@ -150,8 +151,9 @@ public class WebController {
         return WebController.status + "";
     }
     @RequestMapping(value = "getLogs", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json")
-    public @ResponseBody List<LogHistory> getLogs(){
-        List<LogHistory> logHistories = logHistoryRepository.findAll();
+    public @ResponseBody
+    Iterable<LogHistory> getLogs(){
+        Iterable<LogHistory> logHistories = logHistoryRepository.findAllDesc();
         return logHistories;
     }
 
