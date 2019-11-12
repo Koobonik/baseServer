@@ -148,8 +148,13 @@ public class WebController {
         }
         System.out.println(WebController.status + " 반환");
         return WebController.status + "";
-
     }
+    @RequestMapping(value = "getLogs", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json")
+    public @ResponseBody List<LogHistory> getLogs(){
+        List<LogHistory> logHistories = logHistoryRepository.findAll();
+        return logHistories;
+    }
+
 
     @RequestMapping(value = "getStatus", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json")
     public @ResponseBody String getStatus() {
