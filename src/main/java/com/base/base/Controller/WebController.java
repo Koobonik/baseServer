@@ -1,10 +1,12 @@
 package com.base.base.Controller;
 
+import com.base.base.DB.LogHistory;
 import com.base.base.DB.Parameter;
 import com.base.base.DB.FirebaseToken;
 import com.base.base.firebase.PushNotificationService;
 import com.base.base.firebase.PushPeriodicNotifications;
 import com.base.base.repository.FirebaseTokenRepository;
+import com.base.base.repository.LogHistoryRepository;
 import lombok.extern.java.Log;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import com.base.base.Controller.DateController;
+
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -29,6 +31,9 @@ public class WebController {
 
     @Autowired
     private FirebaseTokenRepository firebaseTokenRepository;
+
+    @Autowired
+    private LogHistoryRepository logHistoryRepository;
 
     private static boolean status = true;
     private static String str = "hi";
@@ -75,9 +80,11 @@ public class WebController {
                 catch (NullPointerException e){
                 }
             }
+            // split(":::") 해줘야함
             String notifications = PushPeriodicNotifications.PeriodicNotificationJson();
+            String[] noti = notifications.split(":::");
 
-            HttpEntity<String> request = new HttpEntity<>(notifications);
+            HttpEntity<String> request = new HttpEntity<>(noti[0]);
             System.out.println(request);
 
             CompletableFuture<String> pushNotification = pushNotificationService.send(request);
@@ -85,8 +92,17 @@ public class WebController {
 
             try{
                 String firebaseResponse = pushNotification.get();
+
                 // 푸시를 성공적으로 보냈다면 스위치 off
                 // WebController.status = false;
+
+                LogHistory logHistory = new LogHistory();
+                logHistory.setDate(noti[1]);
+                logHistory.setAccess(noti[2]);
+
+                logHistoryRepository.save(logHistory);
+
+
                 return new ResponseEntity<>(firebaseResponse, HttpStatus.OK);
             }
             catch (InterruptedException e){

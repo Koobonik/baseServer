@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.*;
 import java.util.Date;
 
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
+//@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Getter
 @Setter
 @Service
@@ -28,4 +28,5 @@ public class LogHistory {
         this.date = date;
         this.access = access;
     }
+    public LogHistory(){}
 }

@@ -27,7 +27,7 @@ public class PushPeriodicNotifications {
     private FirebaseTokenRepository firebaseTokenRepository;
 
     @Autowired
-    private static LogHistoryRepository logHistoryRepository;
+    private LogHistoryRepository logHistoryRepository;
 
     public static String tokens[] = new String[1000];
     // 파라미터로 String Array로 토큰 실어주면 될듯
@@ -60,7 +60,7 @@ public class PushPeriodicNotifications {
 
         DateController dateController = new DateController();
 
-        notification.put("title",dateController.getCreatedDate2());
+        notification.put("title", dateController.getCreatedDate2());
         // notification.put("title","Warning");
         String bodyStr = "We got a some warning";
         notification.put("body", bodyStr);
@@ -69,8 +69,10 @@ public class PushPeriodicNotifications {
         System.out.println(body.toString());
 
         LogHistory logHistory = new LogHistory(dateController.getCreatedDate2(), bodyStr);
-        logHistoryRepository.save(logHistory);
-        return body.toString();
+        logHistory.setDate(dateController.getCreatedDate2());
+        logHistory.setAccess(bodyStr);
+        System.out.println(logHistory.getDate() + " " + logHistory.getAccess());
+        return body.toString()+":::" + dateController.getCreatedDate2() + ":::" + bodyStr;
     }
 
     // 푸시 메시지를 조합해주는 곳
