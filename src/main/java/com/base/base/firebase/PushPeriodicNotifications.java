@@ -72,7 +72,7 @@ public class PushPeriodicNotifications {
         logHistory.setDate(dateController.getCreatedDate2());
         logHistory.setAccess(bodyStr);
         System.out.println(logHistory.getDate() + " " + logHistory.getAccess());
-        return body.toString()+":::" + dateController.getCreatedDate2() + ":::" + bodyStr;
+        return body.toString()+":::" + dateController.getCreatedDate2() + ":::" + "푸시 알림";
     }
 
     // 푸시 메시지를 조합해주는 곳
