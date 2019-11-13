@@ -165,6 +165,7 @@ public class WebController {
 
     @GetMapping("/setTest")
     public @ResponseBody String setTest(@RequestParam String test){
+        System.out.println(test);
         WebController.str = test;
         return WebController.str;
     }
