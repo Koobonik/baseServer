@@ -17,7 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Stream;
@@ -35,6 +35,12 @@ public class WebController {
 
     @Autowired
     private LogHistoryRepository logHistoryRepository;
+
+    List<Integer> distance = new ArrayList<Integer>();
+
+
+    int i = 0;
+    int count = 0;
 
     private static boolean status = true;
     private static String str = "hi";
@@ -157,20 +163,60 @@ public class WebController {
         return logHistories;
     }
 
+    // 거리에 담겨있던 변수들을 초기화 해주는 메소드
+    @RequestMapping(value = "setLock", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json")
+    public @ResponseBody String setLock(){
+        distance.clear();
+        return "true";
+    }
 
     @RequestMapping(value = "getStatus", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json")
     public @ResponseBody String getStatus() {
         return WebController.status+"";
     }
 
+    // 앱에서 지속적으로 보내오는 데이터들
     @GetMapping("/setTest")
     public @ResponseBody String setTest(@RequestParam String test){
         System.out.println(test);
+        int a = Integer.parseInt(test);
+
+        distance.add(a);
+        System.out.println(distance);
+        System.out.println(distance.iterator().hasNext());
+
+        // 잠금을 걸어야 작동함.
+        if(WebController.status){
+            i += a;
+            count++;
+            // 충분한 데이터를 모으기 위해서 카운트 10
+            if(count > 10){
+                System.out.println("평균 값 : " + i/count);
+                System.out.println("평균 값 90% : " + i/count * 0.9);
+                System.out.println("평균 값 1100% : " + i/count * 1.1);
+                System.out.println("지금 들어온 값 : " + test);
+                if( Integer.parseInt(test) < i/count * 0.9 || i/count*1.1 < Integer.parseInt(test)){
+                    try {
+                        i = 0;
+                        count = 0;
+                        distance.clear();
+                        pushAll();
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
+
+
+//        if(Integer.parseInt(test) )
         WebController.str = test;
-        return WebController.str;
+        return distance.toString();
     }
     @GetMapping("/getTest")
     public @ResponseBody String getTest(){
-        return WebController.str;
+        return distance.toString();
     }
 }
