@@ -193,7 +193,7 @@ public class WebController {
             if(count > 10){
                 System.out.println("평균 값 : " + i/count);
                 System.out.println("평균 값 90% : " + i/count * 0.9);
-                System.out.println("평균 값 1100% : " + i/count * 1.1);
+                System.out.println("평균 값 110% : " + i/count * 1.1);
                 System.out.println("지금 들어온 값 : " + test);
                 if( Integer.parseInt(test) < i/count * 0.9 || i/count*1.1 < Integer.parseInt(test)){
                     try {
@@ -207,6 +207,11 @@ public class WebController {
                     }
                 }
             }
+        }
+        else {
+            i = 0;
+            count = 0;
+            distance.clear();
         }
 
 
