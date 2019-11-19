@@ -64,7 +64,7 @@ public class PushPeriodicNotifications {
         // notification.put("title","Warning");
         String bodyStr = "We got a some warning";
         notification.put("body", bodyStr);
-        // notification.put("sound", "default"); // 소리나 진동 울리게 하고 싶으면 이거 주석 해제
+        notification.put("sound", "default"); // 소리나 진동 울리게 하고 싶으면 이거 주석 해제
         body.put("notification", notification);
         System.out.println(body.toString());
 

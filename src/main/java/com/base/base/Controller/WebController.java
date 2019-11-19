@@ -101,7 +101,7 @@ public class WebController {
                 String firebaseResponse = pushNotification.get();
 
                 // 푸시를 성공적으로 보냈다면 스위치 off
-                // WebController.status = false;
+                WebController.status = false;
 
                 LogHistory logHistory = new LogHistory();
                 logHistory.setDate(noti[1]);
@@ -192,10 +192,10 @@ public class WebController {
             // 충분한 데이터를 모으기 위해서 카운트 10
             if(count > 10){
                 System.out.println("평균 값 : " + i/count);
-                System.out.println("평균 값 90% : " + i/count * 0.9);
-                System.out.println("평균 값 110% : " + i/count * 1.1);
+                System.out.println("평균 값 90% : " + i/count * 0.8);
+                System.out.println("평균 값 110% : " + i/count * 1.2);
                 System.out.println("지금 들어온 값 : " + test);
-                if( Integer.parseInt(test) < i/count * 0.9 || i/count*1.1 < Integer.parseInt(test)){
+                if( Integer.parseInt(test) < i/count * 0.8 || i/count*1.2 < Integer.parseInt(test)){
                     try {
                         i = 0;
                         count = 0;
